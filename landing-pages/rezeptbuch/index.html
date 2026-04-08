@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omas 7 vergessene Sonntagsrezepte – Kostenlos herunterladen</title>
+  <meta name="description" content="Die Rezepte, die früher jede Familie kannte – heute kaum noch jemand macht. Kostenlos als PDF." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #FBF7F0;
+      --cream-dark:#F3EDE1;
+      --brown:     #6B3F1F;
+      --brown-mid: #8B5230;
+      --brown-light:#C48A5A;
+      --text:      #2C1A0E;
+      --muted:     #7A6050;
+      --border:    #DDD0BC;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── Header strip ── */
+    .top-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      padding: 28px 0 0;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 24px 0 32px;
+    }
+
+    .hero__icon {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .hero__headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.9rem, 7vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--brown);
+      margin-bottom: 16px;
+    }
+
+    .hero__sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0 28px;
+    }
+
+    /* ── What you get ── */
+    .benefits {
+      background: var(--cream-dark);
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      margin-bottom: 32px;
+    }
+
+    .benefits__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--brown-mid);
+      margin-bottom: 14px;
+    }
+
+    .benefits__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .benefits__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .benefits__list li::before {
+      content: "✓";
+      flex-shrink: 0;
+      font-weight: 700;
+      color: var(--brown-light);
+      margin-top: 1px;
+    }
+
+    /* ── Form ── */
+
+    /*
+     * ════════════════════════════════════════════════════════
+     * MAILERLITE-INTEGRATION
+     * ════════════════════════════════════════════════════════
+     * Option A (empfohlen): Ersetze das <form> unten durch
+     *   das MailerLite Embedded Form Snippet aus deinem
+     *   MailerLite Dashboard → Forms → Embedded.
+     *   Passe dann nur noch die CSS-Variablen oben an.
+     *
+     * Option B (API): Sende den POST-Request an
+     *   https://api.mailerlite.com/api/v2/subscribers
+     *   mit Header "X-MailerLite-ApiKey: DEIN_KEY"
+     *   Body: { "email": "...", "fields": { "name": "..." } }
+     * ════════════════════════════════════════════════════════
+     */
+
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 16px rgba(107,63,31,0.07);
+    }
+
+    .form-card__headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--brown);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--cream);
+      color: var(--text);
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--brown-light);
+    }
+
+    .field input::placeholder { color: #B8A898; }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin-top: 6px;
+      background: var(--brown);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover  { background: var(--brown-mid); }
+    .btn:active { transform: scale(0.98); }
+
+    /* ── Trust line ── */
+    .trust {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Success state (shown via JS) ── */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 32px 0;
+    }
+
+    .success__icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+    .success__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--brown);
+      margin-bottom: 8px;
+    }
+
+    .success__sub { font-size: 0.95rem; color: var(--muted); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #B8A898;
+      margin-top: 40px;
+    }
+
+    .footer a { color: var(--muted); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <p class="top-label">Kostenlos herunterladen</p>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero__icon">📖</div>
+      <h1 class="hero__headline">Omas 7 vergessene<br>Sonntagsrezepte</h1>
+      <p class="hero__sub">Die Rezepte, die früher jede Familie kannte – heute macht sie kaum noch jemand.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Benefits -->
+    <div class="benefits">
+      <p class="benefits__title">Das bekommst du:</p>
+      <ul class="benefits__list">
+        <li>7 handverlesene Originalrezepte – mit der Geschichte dahinter</li>
+        <li>Schritt-für-Schritt erklärt, auch ohne Kocherfahrung</li>
+        <li>Druckfertig als PDF – direkt in der Küche nutzen</li>
+      </ul>
+    </div>
+
+    <!-- Form -->
+    <div class="form-card" id="formCard">
+      <p class="form-card__headline">Wo soll ich es hinschicken?</p>
+
+      <!-- ↓↓↓ HIER MailerLite Embedded Form einfügen (Option A) ↓↓↓ -->
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="name">Vorname</label>
+          <input type="text" id="name" name="name" placeholder="z.B. Philipp" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="email">E-Mail-Adresse *</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required />
+        </div>
+        <button class="btn" type="submit">Ja, ich will die Rezepte!</button>
+      </form>
+      <!-- ↑↑↑ Ende MailerLite Block ↑↑↑ -->
+
+      <p class="trust">Kein Spam. Abmeldung jederzeit möglich.</p>
+    </div>
+
+    <!-- Success message (shown after submit) -->
+    <div class="success" id="successMsg">
+      <div class="success__icon">🤍</div>
+      <p class="success__title">Schön, dass du dabei bist.</p>
+      <p class="success__sub">Check dein Postfach – die Rezepte sind auf dem Weg zu dir.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2025 philipp.erzählt &nbsp;·&nbsp;
+        <a href="#">Impressum</a> &nbsp;·&nbsp;
+        <a href="#">Datenschutz</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    // ── Placeholder submit handler ──
+    // Wenn MailerLite eingebunden ist, diesen Block entfernen –
+    // MailerLite übernimmt dann Submit + Redirect/Success selbst.
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var email = document.getElementById('email').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('email').focus();
+        return;
+      }
+
+      // TODO: Hier API-Call an MailerLite einfügen (Option B)
+      // fetch('https://api.mailerlite.com/api/v2/subscribers', { ... })
+
+      // Vorläufig: Success-State anzeigen
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
