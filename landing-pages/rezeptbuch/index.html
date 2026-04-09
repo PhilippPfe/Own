@@ -18,8 +18,6 @@
       --cream-dark:  #EFE5D3;
       --terra:       #9B4F2E;
       --terra-dark:  #7D3D22;
-      --terra-light: #C47A55;
-      --sage:        #6B7C55;
       --text:        #2A1A0E;
       --muted:       #7A6A58;
       --border:      #D9CDBA;
@@ -140,26 +138,26 @@
 
     .story__attr { font-size: 0.76rem; color: var(--muted); margin-top: 7px; font-weight: 500; }
 
-    .sage-line {
+    .divider {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 24px;
     }
 
-    .sage-line::before, .sage-line::after {
+    .divider::before, .divider::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--border);
     }
 
-    .sage-line span {
+    .divider span {
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--sage);
+      color: var(--muted);
     }
 
     .benefits {
@@ -184,7 +182,7 @@
       flex-shrink: 0;
       width: 22px;
       height: 22px;
-      background: var(--sage);
+      background: var(--terra);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -209,7 +207,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--sage);
+      color: var(--muted);
       margin-bottom: 8px;
     }
 
@@ -248,7 +246,7 @@
       -webkit-appearance: none;
     }
 
-    .field input:focus { outline: none; border-color: var(--terra-light); background: #fff; }
+    .field input:focus { outline: none; border-color: var(--terra); background: #fff; }
     .field input::placeholder { color: #BFB0A0; }
 
     .btn {
@@ -308,13 +306,13 @@
       </div>
     </div>
 
-    <div class="sage-line"><span>Das bekommst du</span></div>
+    <div class="divider"><span>Das bekommst du</span></div>
 
     <div class="benefits">
       <ul class="benefits__list">
         <li>
           <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          7 Originalrezepte – mit der Geschichte der Oma dahinter
+          7 Originalrezepte – von echten Omas auf der Straße
         </li>
         <li>
           <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
