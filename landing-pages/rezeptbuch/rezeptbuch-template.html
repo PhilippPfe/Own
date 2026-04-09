@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Omas vergessene Rezepte – philipp.erzählt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #FAF6EF;
+      --cream-dark: #EFE5D3;
+      --terra:      #9B4F2E;
+      --terra-dark: #7D3D22;
+      --text:       #2A1A0E;
+      --muted:      #7A6A58;
+      --border:     #D9CDBA;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #DDD5C8;
+      color: var(--text);
+    }
+
+    /* Each .page = one A4 sheet */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: var(--cream);
+      margin: 24px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media print {
+      body { background: none; margin: 0; }
+      .page {
+        margin: 0;
+        page-break-after: always;
+        break-after: page;
+        box-shadow: none;
+      }
+      .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+    }
+
+    @page { size: A4; margin: 0; }
+
+    /* ─── COVER ─────────────────────────────── */
+    .cover {
+      width: 100%;
+      height: 100%;
+      background: var(--terra-dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 52px 56px 48px;
+    }
+
+    .cover__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .cover__label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,217,168,0.55);
+    }
+
+    .cover__free {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,217,168,0.55);
+      border: 1px solid rgba(245,217,168,0.25);
+      border-radius: 100px;
+      padding: 4px 10px;
+    }
+
+    .cover__mid {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 0;
+    }
+
+    .cover__number {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,217,168,0.5);
+      margin-bottom: 18px;
+    }
+
+    .cover__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 58px;
+      font-weight: 700;
+      color: #F5D9A8;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+
+    .cover__rule {
+      width: 44px;
+      height: 2px;
+      background: rgba(245,217,168,0.4);
+      margin-bottom: 24px;
+    }
+
+    .cover__sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: 260px;
+    }
+
+    .cover__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover__brand {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(245,217,168,0.45);
+    }
+
+    .cover__year {
+      font-size: 10px;
+      color: rgba(245,217,168,0.3);
+    }
+
+    /* ─── RECIPE PAGE ───────────────────────── */
+    .recipe {
+      width: 100%;
+      height: 100%;
+      padding: 48px 52px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recipe__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .recipe__meta { flex: 1; }
+
+    .recipe__number {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 7px;
+    }
+
+    .recipe__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--terra-dark);
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .recipe__attr {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .recipe__photo {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      border: 2px dashed var(--border);
+      flex-shrink: 0;
+      margin-left: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .recipe__photo span {
+      font-size: 8px;
+      color: var(--border);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .recipe__rule {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .recipe__body {
+      display: flex;
+      gap: 36px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Ingredients column */
+    .recipe__ingredients {
+      width: 150px;
+      flex-shrink: 0;
+    }
+
+    .col-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .recipe__ingredients ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .recipe__ingredients li {
+      font-size: 11.5px;
+      color: var(--text);
+      line-height: 1.45;
+      padding-left: 13px;
+      position: relative;
+    }
+
+    .recipe__ingredients li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--terra);
+      font-weight: 600;
+    }
+
+    /* Steps column */
+    .recipe__steps { flex: 1; }
+
+    .recipe__steps ol {
+      list-style: none;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .recipe__steps li {
+      font-size: 11.5px;
+      color: var(--text);
+      line-height: 1.65;
+      padding-left: 28px;
+      position: relative;
+      counter-increment: step-counter;
+    }
+
+    .recipe__steps li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 17px;
+      height: 17px;
+      background: var(--terra);
+      color: #fff;
+      font-size: 8.5px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .recipe__tip {
+      background: var(--cream-dark);
+      border-left: 2px solid var(--terra);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .recipe__tip strong {
+      color: var(--terra-dark);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .recipe__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .recipe__footer-brand {
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+
+    .recipe__footer-page {
+      font-size: 8.5px;
+      color: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ COVER ══════════════ -->
+  <div class="page">
+    <div class="cover">
+      <div class="cover__top">
+        <span class="cover__label">philipp.erzählt</span>
+        <span class="cover__free">Kostenlos</span>
+      </div>
+      <div class="cover__mid">
+        <p class="cover__number">7 Rezepte · 7 Omas</p>
+        <h1 class="cover__title">Omas<br>vergessene<br>Rezepte</h1>
+        <div class="cover__rule"></div>
+        <p class="cover__sub">Gesammelt auf der Straße – von echten Omas aus der Nachbarschaft. Bevor sie vergessen werden.</p>
+      </div>
+      <div class="cover__bottom">
+        <span class="cover__brand">philipp.erzählt</span>
+        <span class="cover__year">2025</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 01 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 01</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist. So erklärt wie die Oma es erklärt hätte.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Optionaler persönlicher Tipp, Trick oder Erinnerung der Oma.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">1 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 02 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 02</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">2 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 03 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 03</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">3 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 04 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 04</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">4 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 05 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 05</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">5 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 06 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 06</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">6 / 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REZEPT 07 ══════════════ -->
+  <div class="page">
+    <div class="recipe">
+      <div class="recipe__header">
+        <div class="recipe__meta">
+          <p class="recipe__number">Rezept 07</p>
+          <h2 class="recipe__title">[Rezeptname]</h2>
+          <p class="recipe__attr">Von [Oma-Name], [Stadt]</p>
+        </div>
+        <div class="recipe__photo"><span>Foto<br>Rezept</span></div>
+      </div>
+      <div class="recipe__rule"></div>
+      <div class="recipe__body">
+        <div class="recipe__ingredients">
+          <p class="col-label">Zutaten</p>
+          <ul>
+            <li>[Menge] Zutat 1</li>
+            <li>[Menge] Zutat 2</li>
+            <li>[Menge] Zutat 3</li>
+            <li>[Menge] Zutat 4</li>
+            <li>[Menge] Zutat 5</li>
+            <li>[Menge] Zutat 6</li>
+          </ul>
+        </div>
+        <div class="recipe__steps">
+          <p class="col-label">Zubereitung</p>
+          <ol>
+            <li>[Schritt 1 – Was genau zu tun ist.]</li>
+            <li>[Schritt 2 – Weiter mit dem nächsten Schritt.]</li>
+            <li>[Schritt 3 – Zum Abschluss.]</li>
+          </ol>
+          <div class="recipe__tip"><strong>Tipp der Oma:</strong> [Persönlicher Tipp.]</div>
+        </div>
+      </div>
+      <div class="recipe__footer">
+        <span class="recipe__footer-brand">philipp.erzählt</span>
+        <span class="recipe__footer-page">7 / 7</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
