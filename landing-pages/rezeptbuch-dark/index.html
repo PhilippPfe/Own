@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omas Rezepte. Bevor sie vergessen werden. – philipp.erzählt</title>
+  <meta name="description" content="7 Originalrezepte von echten Omas. Gesammelt auf der Straße. Kostenlos als PDF." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0805;
+      color: #fff;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ======================== */
+    /*  AURORA / LIGHT STREAK   */
+    /* ======================== */
+    canvas#aurora {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    /* ======================== */
+    /*  NAVIGATION              */
+    /* ======================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 8, 5, 0.5);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fb923c;
+      box-shadow: 0 0 12px rgba(251, 146, 60, 0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      padding: 8px 20px;
+      background: rgba(251, 146, 60, 0.12);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+      border-radius: 8px;
+      color: #fb923c;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+
+    .nav-cta:hover {
+      background: rgba(251, 146, 60, 0.2);
+      border-color: rgba(251, 146, 60, 0.5);
+    }
+
+    /* ======================== */
+    /*  HERO                    */
+    /* ======================== */
+    .hero {
+      position: relative;
+      z-index: 2;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(251, 146, 60, 0.07);
+      border: 1px solid rgba(251, 146, 60, 0.2);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(251, 146, 60, 0.85);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .badge .pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fb923c;
+      box-shadow: 0 0 8px rgba(251, 146, 60, 0.6);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 120px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 0.95;
+      max-width: 900px;
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    .hero .subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255, 255, 255, 0.4);
+      max-width: 520px;
+      margin-top: 28px;
+      line-height: 1.6;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.7s;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.9s;
+    }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: #fb923c;
+      color: #000;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(251, 146, 60, 0.35);
+    }
+
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-secondary {
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .scroll-indicator span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(251,146,60,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ======================== */
+    /*  FEATURES                */
+    /* ======================== */
+    .features {
+      position: relative;
+      z-index: 2;
+      padding: 120px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .features-header h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .features-header p {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 17px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 36px 28px;
+      transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon.orange { background: rgba(251, 146, 60, 0.12); }
+    .feature-icon.amber  { background: rgba(245, 158, 11, 0.12); }
+    .feature-icon.red    { background: rgba(239, 68, 68, 0.10); }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.6;
+    }
+
+    /* ======================== */
+    /*  BENTO / SHOWCASE        */
+    /* ======================== */
+    .showcase {
+      position: relative;
+      z-index: 2;
+      padding: 0 24px 120px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .bento-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 32px;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .bento-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .bento-card.wide { grid-column: span 2; }
+    .bento-card.tall { grid-row: span 2; }
+
+    .bento-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .bento-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.6;
+    }
+
+    .bento-card .metric {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #fb923c, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 16px;
+      line-height: 1;
+    }
+
+    .bento-card .metric-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 4px;
+    }
+
+    .quote-mark {
+      font-size: 72px;
+      line-height: 0.8;
+      color: rgba(251, 146, 60, 0.15);
+      font-family: Georgia, serif;
+      margin-bottom: 16px;
+    }
+
+    .quote-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .quote-attr {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 16px;
+      font-weight: 500;
+    }
+
+    /* ======================== */
+    /*  CTA                     */
+    /* ======================== */
+    .cta-section {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 80px 24px 120px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 17px;
+      margin-bottom: 40px;
+    }
+
+    /* ======================== */
+    /*  FOOTER                  */
+    /* ======================== */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ======================== */
+    /*  ANIMATIONS              */
+    /* ======================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 0.8; transform: scaleY(1.2); }
+    }
+
+    /* ======================== */
+    /*  RESPONSIVE              */
+    /* ======================== */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .hero-buttons { flex-direction: column; width: 100%; max-width: 320px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.wide { grid-column: span 1; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .badge, .hero h1, .hero .subtitle, .hero-buttons, .scroll-indicator {
+        animation: none; opacity: 1; transform: none;
+      }
+      .badge .pulse, .scroll-line { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="aurora"></canvas>
+  <div class="grain"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">
+      <span class="dot"></span>
+      philipp.erzählt
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Die Rezepte</a></li>
+      <li><a href="#showcase">Die Geschichte</a></li>
+      <li><a href="#cta">Early Access</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">PDF sichern</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="badge">
+      <span class="pulse"></span>
+      7 echte Omas &nbsp;·&nbsp; 7 echte Rezepte &nbsp;·&nbsp; Kostenlos
+    </div>
+
+    <h1>Omas Rezepte.<br>Bevor sie vergessen werden.</h1>
+
+    <p class="subtitle">Gesammelt auf der Straße – von echten Menschen, echten Küchen, echten Geschichten.</p>
+
+    <div class="hero-buttons">
+      <a href="#cta" class="btn-primary">
+        Kostenlos herunterladen
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#showcase" class="btn-secondary">Die Geschichte</a>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <h2>Was du bekommst</h2>
+      <p>Kein Kochbuch aus dem Supermarkt. Echtes Wissen, das sonst verloren gehen würde.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon orange">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <h3>Echte Rezepte. Echte Omas.</h3>
+        <p>Sieben Originalrezepte, direkt auf der Straße gesammelt. Mit Name, Geschichte und dem Wissen, das dahinter steckt.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Druckfertig als PDF</h3>
+        <p>Schritt für Schritt erklärt, auch ohne Kocherfahrung. Direkt ausdrucken und in der Küche nutzen.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3>Early Access zum Buch</h3>
+        <p>Wer sich heute einträgt, erfährt als Erster, wenn das gedruckte Rezeptbuch erscheint – und bekommt Early Access.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Showcase -->
+  <section class="showcase" id="showcase">
+    <div class="bento-grid">
+
+      <div class="bento-card wide tall">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – und wie stolz sie dabei werden – das macht diesen Moment jedes Mal so besonders.</p>
+        <p class="quote-attr">— Philipp · philipp.erzählt</p>
+      </div>
+
+      <div class="bento-card">
+        <p class="metric-label">Originalrezepte</p>
+        <div class="metric">7</div>
+        <p style="margin-top:12px;">Von echten Omas auf der Straße gesammelt.</p>
+      </div>
+
+      <div class="bento-card">
+        <p class="metric-label">Echte Omas</p>
+        <div class="metric">7</div>
+        <p style="margin-top:12px;">Jede mit ihrer eigenen Geschichte und Küche.</p>
+      </div>
+
+      <div class="bento-card wide">
+        <h3>Das gedruckte Buch kommt.</h3>
+        <p>Wer sich jetzt einträgt, bekommt Early Access – und erfährt als Erster den Erscheinungstermin. Bevor es ausverkauft ist.</p>
+      </div>
+
+      <div class="bento-card">
+        <p class="metric-label">Dein Preis</p>
+        <div class="metric">0€</div>
+        <p style="margin-top:12px;">Das PDF ist komplett kostenlos.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <h2>Deine Oma hat ein<br>Rezept verdient.</h2>
+    <p>Trag dich ein und bekomme die PDF sofort – und Early Access zum Buch.</p>
+    <a href="https://philipp-erzaehlt.de" class="btn-primary">
+      Jetzt kostenlos sichern
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 philipp.erzählt &nbsp;·&nbsp; <a href="#">Impressum</a> &nbsp;·&nbsp; <a href="#">Datenschutz</a></p>
+  </footer>
+
+  <!-- Aurora Canvas -->
+  <script>
+    const canvas = document.getElementById('aurora');
+    const ctx = canvas.getContext('2d');
+    let width, height, time = 0;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Warm Food/Lifestyle palette: oranges, ambers, reds, yellows
+    const colors = [
+      { r: 251, g: 146, b: 60  },  // orange
+      { r: 245, g: 158, b: 11  },  // amber
+      { r: 239, g: 68,  b: 68  },  // red
+      { r: 251, g: 191, b: 36  },  // yellow
+      { r: 249, g: 115, b: 22  },  // deep orange
+      { r: 252, g: 211, b: 77  },  // light amber
+    ];
+
+    class LightStreak {
+      constructor(yBase, speed, amplitude, thickness, colorOffset) {
+        this.yBase = yBase;
+        this.speed = speed;
+        this.amplitude = amplitude;
+        this.thickness = thickness;
+        this.colorOffset = colorOffset;
+      }
+
+      draw(t) {
+        const points = [];
+        const segments = 200;
+
+        for (let i = 0; i <= segments; i++) {
+          const x = (i / segments) * (width + 200) - 100;
+          const progress = i / segments;
+          const wave1 = Math.sin(progress * 3 + t * this.speed) * this.amplitude;
+          const wave2 = Math.sin(progress * 5 + t * this.speed * 0.7) * (this.amplitude * 0.4);
+          const wave3 = Math.cos(progress * 2 + t * this.speed * 0.3) * (this.amplitude * 0.2);
+          const y = this.yBase + wave1 + wave2 + wave3;
+          points.push({ x, y, progress });
+        }
+
+        for (let i = 0; i < points.length - 1; i++) {
+          const p1 = points[i];
+          const p2 = points[i + 1];
+
+          const colorIndex = ((p1.progress + this.colorOffset + t * 0.02) % 1) * (colors.length - 1);
+          const ci = Math.floor(colorIndex);
+          const cf = colorIndex - ci;
+          const c1 = colors[ci % colors.length];
+          const c2 = colors[(ci + 1) % colors.length];
+
+          const r = c1.r + (c2.r - c1.r) * cf;
+          const g = c1.g + (c2.g - c1.g) * cf;
+          const b = c1.b + (c2.b - c1.b) * cf;
+
+          const edgeFade = Math.sin(p1.progress * Math.PI);
+          const alpha = 0.55 * edgeFade;
+
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(${r|0}, ${g|0}, ${b|0}, ${alpha})`;
+          ctx.lineWidth = this.thickness;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(${r|0}, ${g|0}, ${b|0}, ${alpha * 0.12})`;
+          ctx.lineWidth = this.thickness * 6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    const streaks = [
+      new LightStreak(height * 0.72, 0.8, 60, 3,   0),
+      new LightStreak(height * 0.75, 0.6, 80, 2,   0.3),
+      new LightStreak(height * 0.78, 1.0, 50, 2.5, 0.6),
+      new LightStreak(height * 0.68, 0.5, 40, 1.5, 0.15),
+      new LightStreak(height * 0.82, 0.7, 70, 1.5, 0.45),
+    ];
+
+    class Particle {
+      constructor() { this.reset(); }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 1.5 + 0.3;
+        this.alpha = Math.random() * 0.25;
+        this.speed = Math.random() * 0.3 + 0.05;
+        this.drift = (Math.random() - 0.5) * 0.2;
+        this.pulse = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        this.y -= this.speed;
+        this.x += this.drift;
+        this.pulse += 0.02;
+        if (this.y < -10) this.reset();
+        if (this.x < -10 || this.x > width + 10) this.reset();
+      }
+
+      draw() {
+        const a = this.alpha * (0.5 + 0.5 * Math.sin(this.pulse));
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 220, 180, ${a})`;
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: 55 }, () => new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      time += 0.008;
+      particles.forEach(p => { p.update(); p.draw(); });
+      streaks.forEach(s => s.draw(time));
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      streaks[0].yBase = height * 0.72;
+      streaks[1].yBase = height * 0.75;
+      streaks[2].yBase = height * 0.78;
+      streaks[3].yBase = height * 0.68;
+      streaks[4].yBase = height * 0.82;
+    });
+  </script>
+
+</body>
+</html>
