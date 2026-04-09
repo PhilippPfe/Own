@@ -3,296 +3,575 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omas Rezepte. Bevor sie vergessen werden. – philipp.erzählt</title>
-  <meta name="description" content="7 Originalrezepte von echten Omas. Gesammelt auf der Straße. Kostenlos als PDF." />
+  <title>Omas vergessene Rezepte – philipp.erzählt</title>
+  <meta name="description" content="7 Originalrezepte von echten Omas. Kostenlos als PDF." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --cream:      #FAF6EF;
-      --cream-dark: #EFE5D3;
-      --terra:      #9B4F2E;
-      --terra-dark: #7D3D22;
-      --text:       #2A1A0E;
-      --muted:      #7A6A58;
-      --border:     #D9CDBA;
-      --white:      #ffffff;
+      --cream:  #F8F3EC;
+      --warm:   #EDE0CC;
+      --terra:  #8B3A1F;
+      --dark:   #1C1008;
+      --muted:  #6B5A48;
+      --border: #D5C9B6;
     }
+
     html { font-size: 16px; scroll-behavior: smooth; }
-    body {
-      background: var(--cream);
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    body { background: var(--cream); color: var(--dark); font-family: 'Lato', sans-serif; }
+
+    /* ── HERO ── */
     .hero {
       position: relative;
-      z-index: 1;
-      min-height: 100svh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      background: var(--cream);
+      height: 100svh;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       overflow: hidden;
     }
-    .hero__inner {
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../rezeptbuch/loes-klinker-T5VHI-Pj2NQ-unsplash.jpg');
+      background-size: cover;
+      background-position: center 25%;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+
+    .hero__bg.loaded { transform: scale(1); }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15,7,2,0.08) 0%,
+        rgba(15,7,2,0.1) 35%,
+        rgba(15,7,2,0.72) 75%,
+        rgba(15,7,2,0.92) 100%
+      );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 28px 48px;
+      max-width: 580px;
+    }
+
+    .hero__tag {
+      display: inline-block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    .hero__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      font-weight: 400;
+      color: #F2C891;
+    }
+
+    .hero__desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+
+    .hero__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: #fff;
+      color: var(--dark);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero__btn:hover { background: var(--warm); transform: translateY(-1px); }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 48px;
+      right: 28px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.45;
+    }
+
+    .hero__scroll span {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      writing-mode: vertical-rl;
+    }
+
+    .hero__scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #fff, transparent);
+    }
+
+    /* ── PULLQUOTE ── */
+    .pullquote {
+      background: var(--dark);
+      color: #fff;
+      padding: 64px 28px;
+      text-align: center;
+    }
+
+    .pullquote__mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 0.6;
+      color: rgba(242,200,145,0.3);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .pullquote__text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.45rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 560px;
+      margin: 0 auto 28px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .pullquote__author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .pullquote__avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(242,200,145,0.4);
+    }
+
+    .pullquote__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .pullquote__name {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 72px 28px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-item:last-child { border-bottom: none; }
+
+    .feature-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 36px;
+      padding-top: 2px;
+    }
+
+    .feature-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .feature-body p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── BOOK ── */
+    .book-section {
+      background: var(--warm);
+      padding: 56px 28px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      max-width: 640px;
+      margin: 0 auto 0;
+    }
+
+    .book {
+      flex-shrink: 0;
+      width: 90px;
+      height: 124px;
+      display: flex;
+      filter: drop-shadow(6px 8px 16px rgba(28,16,8,0.3));
+    }
+
+    .book__spine {
+      width: 14px;
+      background: #5C2510;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .book__cover {
+      flex: 1;
+      background: var(--terra);
+      border-radius: 0 3px 3px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 10px 8px;
       text-align: center;
-      padding: 80px 24px 48px;
-    }
-    .hero__label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 20px;
-      animation: fadeUp 0.8s ease 0.1s both;
-    }
-    .hero__headline {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2.6rem, 8vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      max-width: 720px;
-      margin-bottom: 24px;
-      animation: fadeUp 1s ease 0.25s both;
-    }
-    .hero__headline em { font-style: italic; color: var(--terra); }
-    .hero__sub {
-      font-size: clamp(1rem, 2.2vw, 1.15rem);
-      color: var(--muted);
-      max-width: 460px;
-      line-height: 1.65;
-      margin-bottom: 40px;
-      animation: fadeUp 0.8s ease 0.4s both;
-    }
-    .hero__cta-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      animation: fadeUp 0.8s ease 0.55s both;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 36px;
-      background: var(--terra);
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      font-family: inherit;
-      border: none;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(155,79,46,0.25);
-    }
-    .btn-primary:hover { background: var(--terra-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(155,79,46,0.32); }
-    .btn-primary:active { transform: scale(0.98); }
-    .hero__trust { font-size: 0.75rem; color: var(--muted); opacity: 0.7; }
-    .hero__photo {
       position: relative;
-      z-index: 1;
-      width: 100%;
-      height: clamp(240px, 38vw, 420px);
-      overflow: hidden;
     }
-    .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
-    .hero__photo::after {
+
+    .book__cover::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, var(--cream) 0%, transparent 18%, transparent 70%, var(--cream) 100%);
+      inset: 6px;
+      border: 1px solid rgba(242,200,145,0.25);
+      border-radius: 1px;
     }
-    .content { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; padding: 0 24px 80px; }
-    .divider { display: flex; align-items: center; gap: 12px; margin: 48px 0 36px; }
-    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .divider span { font-family: 'Playfair Display', Georgia, serif; font-size: 0.78rem; font-style: italic; color: var(--muted); white-space: nowrap; }
-    .story { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 48px; }
-    .story__avatar { flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%; overflow: hidden; border: 3px solid var(--cream-dark); box-shadow: 0 4px 16px rgba(155,79,46,0.15); }
-    .story__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .story__text { flex: 1; padding-top: 4px; }
-    .story__quote { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; font-style: italic; color: var(--terra-dark); line-height: 1.65; }
-    .story__attr { font-size: 0.75rem; color: var(--muted); margin-top: 8px; font-weight: 500; }
-    .benefits { background: var(--cream-dark); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 28px; }
-    .benefits__title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: var(--terra-dark); margin-bottom: 20px; }
-    .benefits__list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .benefits__list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--text); line-height: 1.5; }
-    .benefits__list li.highlight { color: var(--terra-dark); font-weight: 600; }
-    .check { flex-shrink: 0; width: 22px; height: 22px; background: var(--terra); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-    .check svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .book-teaser { display: flex; align-items: center; gap: 22px; background: var(--white); border: 1.5px solid var(--terra); border-radius: 20px; padding: 24px; margin-bottom: 36px; box-shadow: 0 2px 20px rgba(155,79,46,0.09); }
-    .book { flex-shrink: 0; width: 86px; height: 118px; display: flex; filter: drop-shadow(4px 6px 12px rgba(125,61,34,0.32)); }
-    .book__spine { width: 13px; height: 100%; background: var(--terra-dark); border-radius: 2px 0 0 2px; flex-shrink: 0; }
-    .book__cover { flex: 1; background: var(--terra); border-radius: 0 3px 3px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 8px; text-align: center; position: relative; overflow: hidden; }
-    .book__cover::before { content: ''; position: absolute; top: 7px; left: 7px; right: 7px; bottom: 7px; border: 1px solid rgba(245,217,168,0.28); border-radius: 1px; pointer-events: none; }
-    .book__title { font-family: 'Playfair Display', Georgia, serif; font-size: 0.58rem; font-weight: 700; color: #F5D9A8; line-height: 1.35; position: relative; z-index: 1; }
-    .book__divider { width: 24px; height: 1px; background: rgba(245,217,168,0.4); margin: 6px auto; }
-    .book__author { font-size: 0.46rem; color: rgba(245,217,168,0.6); font-weight: 500; letter-spacing: 0.06em; position: relative; z-index: 1; }
-    .book-teaser__text { flex: 1; }
-    .book-teaser__label { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra); margin-bottom: 4px; }
-    .book-teaser__headline { font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: var(--terra-dark); line-height: 1.3; margin-bottom: 6px; }
-    .book-teaser__body { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
-    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 24px; padding: 36px 28px 28px; box-shadow: 0 4px 32px rgba(155,79,46,0.08); margin-bottom: 20px; }
-    .form-card__eyebrow { text-align: center; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .form-card__headline { font-family: 'Playfair Display', Georgia, serif; font-size: 1.45rem; font-weight: 700; color: var(--terra-dark); text-align: center; margin-bottom: 28px; line-height: 1.3; }
+
+    .book__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: #F2C891;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+
+    .book__line { width: 20px; height: 1px; background: rgba(242,200,145,0.35); margin: 5px auto; }
+
+    .book__author {
+      font-size: 0.44rem;
+      color: rgba(242,200,145,0.55);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .book-info__label {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 6px;
+    }
+
+    .book-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .book-info p {
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FORM ── */
+    .form-section {
+      padding: 64px 28px 80px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .form-section h2 em { font-style: italic; color: var(--terra); }
+
+    .form-section .sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
     .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .field input { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; background: var(--cream); color: var(--text); transition: border-color 0.2s, background 0.2s; -webkit-appearance: none; }
-    .field input:focus { outline: none; border-color: var(--terra); background: #fff; }
-    .field input::placeholder { color: #BFB0A0; }
-    .btn-submit { display: block; width: 100%; padding: 16px; margin-top: 8px; background: var(--terra); color: #fff; font-size: 1rem; font-weight: 600; font-family: inherit; border: none; border-radius: 14px; cursor: pointer; transition: background 0.2s, transform 0.1s; box-shadow: 0 4px 16px rgba(155,79,46,0.22); }
-    .btn-submit:hover { background: var(--terra-dark); }
-    .btn-submit:active { transform: scale(0.985); }
-    .trust { text-align: center; font-size: 0.76rem; color: var(--muted); margin-top: 12px; opacity: 0.75; }
+
+    .field label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-family: 'Lato', sans-serif;
+      background: #fff;
+      color: var(--dark);
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .field input:focus { outline: none; border-color: var(--terra); }
+    .field input::placeholder { color: #C4B8A8; }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-top: 8px;
+      background: var(--terra);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover { background: #6E2D17; }
+
+    .form-trust {
+      font-size: 0.74rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 14px;
+      opacity: 0.8;
+    }
+
     .success { display: none; text-align: center; padding: 48px 0; }
-    .success__icon { font-size: 2.4rem; margin-bottom: 16px; }
-    .success__title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; font-style: italic; color: var(--terra-dark); margin-bottom: 8px; }
-    .success__sub { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
-    .footer { text-align: center; font-size: 0.74rem; color: #BFB0A0; margin-top: 48px; padding-bottom: 40px; }
-    .footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
-    @media (max-width: 480px) {
-      .story { gap: 14px; }
-      .story__avatar { width: 60px; height: 60px; }
-      .book-teaser { gap: 16px; }
-      .book { width: 72px; height: 100px; }
+    .success__icon { font-size: 2rem; margin-bottom: 14px; }
+    .success__title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; color: var(--terra); margin-bottom: 8px; }
+    .success__sub { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: #B0A090;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); }
+
+    @media (min-width: 640px) {
+      .hero__content { padding: 0 48px 64px; }
+      .features, .form-section { padding-left: 48px; padding-right: 48px; }
+      .book-section { padding: 64px 48px; }
+      .pullquote { padding: 80px 48px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero__inner">
-      <p class="hero__label">Kostenloses PDF &nbsp;·&nbsp; Early Access Rezeptbuch</p>
-      <h1 class="hero__headline">
-        Omas Rezepte.<br>
-        <em>Bevor sie vergessen werden.</em>
-      </h1>
-      <p class="hero__sub">
-        Gesammelt auf der Straße – von echten Omas.<br>
-        7 Originalrezepte. Druckfertig. Kostenlos.
-      </p>
-      <div class="hero__cta-wrap">
-        <a href="#form" class="btn-primary">
-          PDF kostenlos sichern
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <span class="hero__trust">Kein Spam. Abmeldung jederzeit möglich.</span>
-      </div>
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__tag">philipp.erzählt &nbsp;·&nbsp; Kostenloses PDF</span>
+      <h1 class="hero__title">Omas Rezepte.<br><em>Bevor sie vergessen werden.</em></h1>
+      <p class="hero__desc">7 Originalrezepte von echten Omas – gesammelt auf der Straße. Druckfertig, kostenlos, sofort.</p>
+      <a href="#form" class="hero__btn">
+        PDF kostenlos sichern
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
-    <div class="hero__photo">
-      <img src="../rezeptbuch/loes-klinker-T5VHI-Pj2NQ-unsplash.jpg" alt="Hände beim Backen" />
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
     </div>
   </section>
 
-  <div class="content">
-
-    <div class="divider"><span>Die Geschichte dahinter</span></div>
-
-    <div class="story">
-      <div class="story__avatar">
+  <!-- Pullquote -->
+  <div class="pullquote">
+    <span class="pullquote__mark">"</span>
+    <p class="pullquote__text">Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – das macht diesen Moment jedes Mal so besonders.</p>
+    <div class="pullquote__author">
+      <div class="pullquote__avatar">
         <img src="../rezeptbuch/IMG_9377 6.jpg" alt="Philipp" />
       </div>
-      <div class="story__text">
-        <p class="story__quote">"Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – das macht diesen Moment jedes Mal so besonders."</p>
-        <p class="story__attr">— Philipp · philipp.erzählt</p>
+      <span class="pullquote__name">Philipp &nbsp;·&nbsp; philipp.erzählt</span>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="features">
+    <p class="section-label">Was du bekommst</p>
+
+    <div class="feature-item">
+      <span class="feature-num">01</span>
+      <div class="feature-body">
+        <h3>7 Originalrezepte – von echten Omas</h3>
+        <p>Keine Kochbuch-Influencer. Echte Menschen, echte Küchen, echte Geschichten – direkt von der Straße.</p>
       </div>
     </div>
 
-    <div class="divider"><span>Was du bekommst</span></div>
-
-    <div class="benefits">
-      <p class="benefits__title">Dein kostenloses PDF enthält:</p>
-      <ul class="benefits__list">
-        <li>
-          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          7 Originalrezepte – von echten Omas auf der Straße
-        </li>
-        <li>
-          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          Schritt-für-Schritt erklärt, auch ohne Kocherfahrung
-        </li>
-        <li>
-          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          Druckfertig als PDF – direkt in der Küche nutzen
-        </li>
-        <li class="highlight">
-          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
-          Early Access zum gedruckten Rezeptbuch
-        </li>
-      </ul>
-    </div>
-
-    <div class="book-teaser">
-      <div class="book">
-        <div class="book__spine"></div>
-        <div class="book__cover">
-          <span class="book__title">Omas vergessene Rezepte</span>
-          <div class="book__divider"></div>
-          <span class="book__author">philipp.erzählt</span>
-        </div>
-      </div>
-      <div class="book-teaser__text">
-        <p class="book-teaser__label">Demnächst</p>
-        <p class="book-teaser__headline">Das gedruckte Buch kommt.</p>
-        <p class="book-teaser__body">Wer sich heute einträgt, erfährt zuerst, wenn es erscheint – und bekommt Early Access.</p>
+    <div class="feature-item">
+      <span class="feature-num">02</span>
+      <div class="feature-body">
+        <h3>Druckfertig als PDF</h3>
+        <p>Schritt für Schritt erklärt, auch ohne Kocherfahrung. Einfach ausdrucken und sofort in der Küche nutzen.</p>
       </div>
     </div>
 
-    <div class="form-card" id="form">
-      <p class="form-card__eyebrow">Kostenlos &amp; sofort</p>
-      <p class="form-card__headline">Wo soll ich es<br>hinschicken?</p>
-      <form id="signupForm" novalidate>
-        <div class="field">
-          <label for="name">Vorname</label>
-          <input type="text" id="name" name="name" placeholder="z.B. Maria" autocomplete="given-name" />
-        </div>
-        <div class="field">
-          <label for="email">E-Mail-Adresse *</label>
-          <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required />
-        </div>
-        <button class="btn-submit" type="submit">PDF + Early Access sichern →</button>
-      </form>
-      <p class="trust">🔒 Kein Spam. Abmeldung jederzeit möglich.</p>
+    <div class="feature-item">
+      <span class="feature-num">03</span>
+      <div class="feature-body">
+        <h3>Early Access zum gedruckten Buch</h3>
+        <p>Wer sich heute einträgt, erfährt zuerst, wenn das Buch erscheint – und bekommt Early Access.</p>
+      </div>
     </div>
+  </section>
+
+  <!-- Book teaser -->
+  <div class="book-section">
+    <div class="book">
+      <div class="book__spine"></div>
+      <div class="book__cover">
+        <span class="book__title">Omas vergessene Rezepte</span>
+        <div class="book__line"></div>
+        <span class="book__author">philipp.erzählt</span>
+      </div>
+    </div>
+    <div class="book-info">
+      <p class="book-info__label">Demnächst</p>
+      <h3>Das gedruckte Buch kommt.</h3>
+      <p>Wer sich jetzt einträgt, bekommt Early Access und erfährt als Erster den Erscheinungstermin.</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <section class="form-section" id="form">
+    <h2>Wo soll ich es<br><em>hinschicken?</em></h2>
+    <p class="sub">Kostenlos & sofort – trag dich ein und bekomme die Rezepte direkt ins Postfach.</p>
+
+    <form id="signupForm" novalidate>
+      <div class="field">
+        <label for="name">Vorname</label>
+        <input type="text" id="name" name="name" placeholder="z.B. Maria" autocomplete="given-name" />
+      </div>
+      <div class="field">
+        <label for="email">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required />
+      </div>
+      <button class="submit-btn" type="submit">PDF + Early Access sichern →</button>
+    </form>
+
+    <p class="form-trust">🔒 Kein Spam. Abmeldung jederzeit möglich.</p>
 
     <div class="success" id="successMsg">
       <div class="success__icon">🤍</div>
       <p class="success__title">Schön, dass du dabei bist.</p>
       <p class="success__sub">Check dein Postfach – die Rezepte sind auf dem Weg.<br>Du bist jetzt auf der Early-Access-Liste.</p>
     </div>
+  </section>
 
-    <footer class="footer">
-      <p>&copy; 2025 philipp.erzählt &nbsp;·&nbsp; <a href="../rezeptbuch/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="../rezeptbuch/datenschutz.html">Datenschutz</a></p>
-    </footer>
-
-  </div>
+  <footer>
+    <p>&copy; 2025 philipp.erzählt &nbsp;·&nbsp; <a href="../rezeptbuch/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="../rezeptbuch/datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script>
+    // Subtle hero zoom on load
+    window.addEventListener('load', function () {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+
     document.getElementById('signupForm').addEventListener('submit', function (e) {
       e.preventDefault();
       var email = document.getElementById('email').value.trim();
@@ -306,7 +585,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, name: name || undefined })
       }).finally(function () {
-        document.getElementById('form').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'none';
         document.getElementById('successMsg').style.display = 'block';
       });
     });
