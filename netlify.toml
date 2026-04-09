@@ -1,2 +1,3 @@
 [build]
   publish = "landing-pages/rezeptbuch"
+  functions = "netlify/functions"
