@@ -521,3 +521,124 @@ Starkes Format, wird geteilt. Beide Spalten kontrastieren (IN = aktiv handeln, O
 - Pressearbeit: "Gen Z rettet Omas Küche" – Story für Spiegel, Zeit Online, Bento
 
 ---
+
+## Chat 4: Landing Page, MailerLite, PDF-Template & Rechtliches
+
+### Tech-Infrastruktur (live)
+
+| Was | Details |
+|-----|---------|
+| **GitHub Repo** | `github.com/PhilippPfe/Own` (public) |
+| **Branch** | `claude/store-chat-knowledge-7vg7C` |
+| **Netlify Site** | `cheerful-swan-992d42.netlify.app` |
+| **Auto-Deploy** | GitHub push → Netlify deployed automatisch |
+| **Publish-Dir** | `landing-pages/rezeptbuch/` (via `netlify.toml`) |
+
+---
+
+### Landing Page (`index.html`) – Live
+
+**URL:** `cheerful-swan-992d42.netlify.app`
+
+**Design:**
+- Farben: Terracotta only (`#9B4F2E`, `#7D3D22`, `#FAF6EF`, `#EFE5D3`)
+- Fonts: Playfair Display (Serif) + Inter (Sans)
+- Mobile-first, max-width 540px
+
+**Struktur:**
+1. Hero-Bild (`loes-klinker-T5VHI-Pj2NQ-unsplash.jpg` – Nudelholz-Foto)
+2. Badge: "Kostenloses PDF + Early Access Rezeptbuch"
+3. Philipp-Profilbild + Zitat (`IMG_9377 6.jpg`)
+4. Benefits (4 Punkte inkl. Early Access)
+5. CSS-Buch-Mockup mit Teaser "Das gedruckte Buch kommt"
+6. Anmeldeformular → MailerLite
+7. Footer mit Impressum + Datenschutz
+
+**Positionierung:** Wer sich anmeldet bekommt sofort das kostenlose PDF + landet automatisch auf der Early-Access-Liste für das gedruckte Buch.
+
+---
+
+### MailerLite Integration
+
+- **Account:** p.pfefferle@hotmail.de
+- **Account ID:** `2256075`
+- **Form ID:** `184261107801654272`
+- **Form-Endpoint:** `https://assets.mailerlite.com/jsonp/2256075/forms/184261107801654272/subscribe`
+- **Gruppe:** "Rezeptbuch"
+- **Felder:** `fields[email]`, `fields[name]`, `ml-submit=1`, `anticsrf=true`
+
+**Wichtig:** API-Token NICHT in öffentlichen GitHub-Code packen.
+
+---
+
+### Email-Sequenz (geplant, noch in MailerLite einzurichten)
+
+| # | Zeitpunkt | Betreff | Inhalt |
+|---|-----------|---------|--------|
+| 1 | Sofort | "Deine 7 Rezepte sind da 🤍" | PDF-Link + kurze persönliche Geschichte |
+| 2 | Tag 3 | "Ich brauche deine Meinung (2 Minuten)" | Survey mit 3 Fragen via MailerLite Survey-Block |
+
+**Survey-Fragen (Email 2):**
+1. Wie viele Rezepte soll das Buch haben? (20–30 / 50–70 / 100+)
+2. Wie viel würdest du dafür bezahlen? (15–20€ / 20–30€ / 30€+)
+3. Was darf auf keinen Fall fehlen? (Freitext)
+
+**Automation-Setup in MailerLite:**
+- Trigger: "When subscriber joins group: Rezeptbuch"
+- Step 1: Email 1 sofort
+- Step 2: Delay 3 Tage
+- Step 3: Email 2 mit Survey-Block
+
+---
+
+### PDF-Template (`rezeptbuch-template.html`)
+
+**URL:** `cheerful-swan-992d42.netlify.app/rezeptbuch-template.html`
+
+**Struktur:** Cover + 7 Rezeptseiten (A4, druckfertig)
+
+**Pro Rezeptseite:**
+- Obere 37%: Oma-Porträtfoto (links, 62%) + Gericht-Foto (rechts, 38%)
+- Rezeptnummer + Titel + "Von [Oma-Name], [Stadt]"
+- Zutaten-Spalte links + nummerierte Schritte rechts
+- "Tipp der Oma" Box
+- Footer mit Brand + Seitenzahl
+
+**PDF erstellen:** Browser → Drucken → "Als PDF sichern" → A4, kein Rand
+
+**Status:** Template fertig, 4 von 7 Rezepten vorhanden
+
+---
+
+### Rechtliche Seiten
+
+| Seite | URL |
+|-------|-----|
+| Impressum | `cheerful-swan-992d42.netlify.app/impressum.html` |
+| Datenschutz | `cheerful-swan-992d42.netlify.app/datenschutz.html` |
+
+**Impressum:** Philipp Pfefferle, Leibnizstraße 28, 10625 Berlin, p.pfefferle@hotmail.de
+
+---
+
+### Rezepte-Sammlung: Straßen-Approach
+
+**Optimierter Opener (für Buch):**
+> "Entschuldigung – ich mache gerade ein Buch mit Rezepten von echten Omas, bevor sie verloren gehen. Haben Sie ein Lieblingsrezept das Sie mir verraten würden?"
+
+**Foto-Anfrage:**
+> "Das klingt wunderschön. Darf ich ein Foto von Ihnen machen? Sie kommen dann mit Ihrem Vornamen ins Buch."
+
+**Rechtliches:** Verbale Zustimmung vor dem Foto reicht. Nur Vorname + Stadt. Rezepte selbst nicht urheberrechtlich geschützt.
+
+---
+
+### Offene To-Dos
+
+- [ ] MailerLite Automation einrichten (Email 1 + 2 mit Survey)
+- [ ] PDF mit echten Rezepten füllen (4 von 7 vorhanden)
+- [ ] PDF hosten und Link in Email 1 einbauen
+- [ ] Instagram Story Strategie für Hype-Aufbau
+- [ ] Remoryo Website (wartet auf UX-Rebuild Co-Founder)
+
+---
