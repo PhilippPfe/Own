@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7 Rezepte von Omas aus der Nachbarschaft – Kostenlos herunterladen</title>
-  <meta name="description" content="Gesammelt auf der Straße – von echten Omas. Für alle, die das nicht vergessen wollen." />
+  <title>7 echte Rezepte. 7 echte Omas. – Kostenlos herunterladen</title>
+  <meta name="description" content="Gesammelt auf der Straße – von echten Omas. Bevor sie vergessen werden." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,15 +14,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:        #FBF7F0;
-      --cream-dark:   #F3EDE1;
-      --brown:        #6B3F1F;
-      --brown-mid:    #8B5230;
-      --brown-light:  #C48A5A;
-      --text:         #2C1A0E;
-      --muted:        #7A6050;
-      --border:       #DDD0BC;
-      --white:        #ffffff;
+      --cream:       #FAF6EF;
+      --cream-dark:  #EFE5D3;
+      --terra:       #9B4F2E;
+      --terra-dark:  #7D3D22;
+      --terra-light: #C47A55;
+      --sage:        #6B7C55;
+      --text:        #2A1A0E;
+      --muted:       #7A6A58;
+      --border:      #D9CDBA;
+      --white:       #ffffff;
     }
 
     html { font-size: 16px; }
@@ -34,6 +35,7 @@
       line-height: 1.6;
     }
 
+    /* ── HERO ── */
     .hero {
       position: relative;
       width: 100%;
@@ -43,6 +45,7 @@
       overflow: hidden;
       display: flex;
       align-items: flex-end;
+      background: #6B4226;
     }
 
     .hero__img {
@@ -51,13 +54,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 40%;
+      object-position: center 35%;
     }
 
     .hero__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(20,8,2,0.08) 0%, rgba(20,8,2,0.30) 40%, rgba(20,8,2,0.78) 100%);
+      background: linear-gradient(to bottom, rgba(30,10,2,0.05) 0%, rgba(30,10,2,0.28) 45%, rgba(30,10,2,0.82) 100%);
     }
 
     .hero__content {
@@ -72,12 +75,12 @@
 
     .badge {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #F5D9A8;
-      border: 1px solid rgba(245,217,168,0.5);
+      border: 1px solid rgba(245,217,168,0.45);
       border-radius: 100px;
       padding: 4px 12px;
       margin-bottom: 14px;
@@ -85,72 +88,111 @@
 
     .hero__headline {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2rem, 8vw, 2.8rem);
+      font-size: clamp(2.1rem, 8.5vw, 3rem);
       font-weight: 700;
-      line-height: 1.12;
+      line-height: 1.1;
       color: var(--white);
-      margin-bottom: 12px;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      margin-bottom: 14px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.35);
     }
 
     .hero__sub {
       font-size: 1rem;
-      color: rgba(255,255,255,0.82);
-      max-width: 340px;
+      color: rgba(255,255,255,0.85);
+      max-width: 360px;
+      line-height: 1.5;
     }
 
+    .hero__sub strong {
+      color: #F5D9A8;
+      font-weight: 600;
+    }
+
+    /* ── CONTENT ── */
     .content {
       max-width: 540px;
       margin: 0 auto;
       padding: 0 20px 64px;
     }
 
+    /* ── STORY ── */
     .story {
       display: flex;
       align-items: flex-start;
-      gap: 20px;
+      gap: 18px;
       margin: 36px 0 32px;
     }
 
     .story__img-wrap {
       flex-shrink: 0;
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid var(--cream-dark);
-      box-shadow: 0 4px 16px rgba(107,63,31,0.15);
+      box-shadow: 0 4px 16px rgba(155,79,46,0.18);
     }
 
     .story__img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .story__text { flex: 1; }
+    .story__text { flex: 1; padding-top: 2px; }
 
     .story__quote {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: normal;
-      font-size: 0.98rem;
-      color: var(--brown);
-      line-height: 1.55;
+      font-size: 0.97rem;
+      color: var(--terra-dark);
+      line-height: 1.6;
     }
 
-    .story__attr { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+    .story__attr {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 7px;
+      font-weight: 500;
+    }
 
+    /* ── SAGE DIVIDER ── */
+    .sage-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .sage-line::before,
+    .sage-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .sage-line span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    /* ── BENEFITS ── */
     .benefits {
       background: var(--cream-dark);
       border-radius: 16px;
       padding: 24px 24px 22px;
       margin-bottom: 28px;
+      border: 1px solid var(--border);
     }
 
     .benefits__title {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 700;
       font-size: 1.05rem;
-      color: var(--brown);
+      color: var(--terra-dark);
       margin-bottom: 16px;
     }
 
-    .benefits__list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .benefits__list { list-style: none; display: flex; flex-direction: column; gap: 13px; }
 
     .benefits__list li {
       display: flex;
@@ -164,7 +206,7 @@
       flex-shrink: 0;
       width: 22px;
       height: 22px;
-      background: var(--brown);
+      background: var(--sage);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -174,22 +216,23 @@
 
     .check svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
+    /* ── FORM ── */
     .form-card {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 32px 24px 24px;
-      box-shadow: 0 4px 32px rgba(107,63,31,0.10);
+      box-shadow: 0 4px 32px rgba(155,79,46,0.09);
       margin-bottom: 16px;
     }
 
     .form-card__eyebrow {
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--brown-light);
+      color: var(--sage);
       margin-bottom: 8px;
     }
 
@@ -197,7 +240,7 @@
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.3rem;
       font-weight: 700;
-      color: var(--brown);
+      color: var(--terra-dark);
       text-align: center;
       margin-bottom: 24px;
       line-height: 1.3;
@@ -207,9 +250,9 @@
 
     .field label {
       display: block;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 6px;
@@ -228,15 +271,15 @@
       -webkit-appearance: none;
     }
 
-    .field input:focus { outline: none; border-color: var(--brown-light); background: #fff; }
-    .field input::placeholder { color: #C0AFA2; }
+    .field input:focus { outline: none; border-color: var(--terra-light); background: #fff; }
+    .field input::placeholder { color: #BFB0A0; }
 
     .btn {
       display: block;
       width: 100%;
       padding: 16px;
       margin-top: 8px;
-      background: var(--brown);
+      background: var(--terra);
       color: #fff;
       font-size: 1rem;
       font-weight: 600;
@@ -247,32 +290,36 @@
       transition: background 0.2s, transform 0.1s;
     }
 
-    .btn:hover { background: var(--brown-mid); }
+    .btn:hover { background: var(--terra-dark); }
     .btn:active { transform: scale(0.985); }
-    .trust { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
 
+    .trust { text-align: center; font-size: 0.77rem; color: var(--muted); margin-top: 10px; }
+
+    /* ── SUCCESS ── */
     .success { display: none; text-align: center; padding: 40px 0; }
     .success__icon { font-size: 3rem; margin-bottom: 16px; }
-    .success__title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; color: var(--brown); margin-bottom: 8px; }
+    .success__title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; color: var(--terra-dark); margin-bottom: 8px; }
     .success__sub { font-size: 0.95rem; color: var(--muted); }
 
-    .footer { text-align: center; font-size: 0.75rem; color: #C0AFA2; margin-top: 48px; }
+    /* ── FOOTER ── */
+    .footer { text-align: center; font-size: 0.75rem; color: #BFB0A0; margin-top: 48px; }
     .footer a { color: var(--muted); text-decoration: underline; }
   </style>
 </head>
 <body>
 
   <div class="hero">
+    <!-- HERO-BILD: URL unten ersetzen sobald Unsplash-Link da ist -->
     <img
       class="hero__img"
-      src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=90"
-      alt="Oma kocht mit Enkelin in der Küche"
+      src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=90"
+      alt="Oma kocht in der Küche"
     />
     <div class="hero__overlay"></div>
     <div class="hero__content">
       <span class="badge">Kostenloses PDF</span>
-      <h1 class="hero__headline">7 Rezepte von Omas<br>aus der Nachbarschaft</h1>
-      <p class="hero__sub">Gesammelt auf der Straße – von echten Omas. Für alle, die das nicht vergessen wollen.</p>
+      <h1 class="hero__headline">7 echte Rezepte.<br>7 echte Omas.</h1>
+      <p class="hero__sub">Gesammelt auf der Straße – von echten Omas.<br><strong>Bevor sie vergessen werden.</strong></p>
     </div>
   </div>
 
@@ -284,12 +331,13 @@
       </div>
       <div class="story__text">
         <p class="story__quote">"Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – und wie stolz sie dabei werden – das macht diesen Moment jedes Mal so besonders."</p>
-        <p class="story__attr">— Philipp, philipp.erzählt</p>
+        <p class="story__attr">— Philipp · philipp.erzählt</p>
       </div>
     </div>
 
+    <div class="sage-line"><span>Das bekommst du</span></div>
+
     <div class="benefits">
-      <p class="benefits__title">Das bekommst du:</p>
       <ul class="benefits__list">
         <li>
           <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
