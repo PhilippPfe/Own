@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,7 +51,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 30%;
+      object-position: center 40%;
     }
 
     .hero__overlay {
@@ -107,15 +107,15 @@
 
     .story {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 20px;
       margin: 36px 0 32px;
     }
 
     .story__img-wrap {
       flex-shrink: 0;
-      width: 90px;
-      height: 90px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid var(--cream-dark);
@@ -127,13 +127,13 @@
 
     .story__quote {
       font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
-      font-size: 1.05rem;
+      font-style: normal;
+      font-size: 0.98rem;
       color: var(--brown);
-      line-height: 1.4;
+      line-height: 1.55;
     }
 
-    .story__attr { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .story__attr { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
 
     .benefits {
       background: var(--cream-dark);
@@ -265,8 +265,8 @@
   <div class="hero">
     <img
       class="hero__img"
-      src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=90"
-      alt="Oma kocht in der Küche"
+      src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=90"
+      alt="Oma kocht mit Enkelin in der Küche"
     />
     <div class="hero__overlay"></div>
     <div class="hero__content">
@@ -280,13 +280,10 @@
 
     <div class="story">
       <div class="story__img-wrap">
-        <img
-          src="IMG_9377 6.jpg"
-          alt="Philipp"
-        />
+        <img src="IMG_9377 6.jpg" alt="Philipp" />
       </div>
       <div class="story__text">
-        <p class="story__quote">"Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Was dabei passiert, überrascht mich jedes Mal."</p>
+        <p class="story__quote">"Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – und wie stolz sie dabei werden – das macht diesen Moment jedes Mal so besonders."</p>
         <p class="story__attr">— Philipp, philipp.erzählt</p>
       </div>
     </div>
