@@ -3,282 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omas vergessene Rezepte – philipp.erzählt</title>
-  <meta name="description" content="7 Originalrezepte von echten Omas. Kostenlos als PDF." />
+  <title>7 echte Rezepte. 7 echte Omas. – philipp.erzählt</title>
+  <meta name="description" content="7 Originalrezepte von echten Omas. Gesammelt auf der Straße. Kostenlos als PDF." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:  #F8F3EC;
-      --warm:   #EDE0CC;
-      --terra:  #8B3A1F;
-      --dark:   #1C1008;
-      --muted:  #6B5A48;
-      --border: #D5C9B6;
+      --cream:      #FAF6EF;
+      --cream-dark: #EFE5D3;
+      --terra:      #9B4F2E;
+      --terra-dark: #7D3D22;
+      --text:       #2A1A0E;
+      --muted:      #7A6A58;
+      --border:     #D9CDBA;
     }
 
     html { font-size: 16px; scroll-behavior: smooth; }
-    body { background: var(--cream); color: var(--dark); font-family: 'Lato', sans-serif; }
 
-    /* ── HERO ── */
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── HERO PHOTO ── */
     .hero {
       position: relative;
-      height: 100svh;
-      min-height: 560px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      width: 100%;
+      height: 60vh;
+      min-height: 380px;
+      max-height: 520px;
       overflow: hidden;
     }
 
-    .hero__bg {
+    .hero img {
       position: absolute;
       inset: 0;
-      background-image: url('../rezeptbuch/loes-klinker-T5VHI-Pj2NQ-unsplash.jpg');
-      background-size: cover;
-      background-position: center 25%;
-      transform: scale(1.04);
-      transition: transform 8s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      display: block;
     }
-
-    .hero__bg.loaded { transform: scale(1); }
 
     .hero__overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(15,7,2,0.08) 0%,
-        rgba(15,7,2,0.1) 35%,
-        rgba(15,7,2,0.72) 75%,
-        rgba(15,7,2,0.92) 100%
+        rgba(28,12,4,0.04) 0%,
+        rgba(28,12,4,0.22) 50%,
+        rgba(28,12,4,0.78) 100%
       );
     }
 
-    .hero__content {
-      position: relative;
-      z-index: 2;
-      padding: 0 28px 48px;
-      max-width: 580px;
+    .hero__text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 24px 32px;
+      max-width: 560px;
+      margin: 0 auto;
     }
 
-    .hero__tag {
+    .hero__badge {
       display: inline-block;
-      font-family: 'Lato', sans-serif;
       font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 16px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
     }
 
     .hero__title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-size: clamp(2rem, 6.5vw, 3.2rem);
       font-weight: 700;
       line-height: 1.1;
       color: #fff;
-      margin-bottom: 14px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
 
     .hero__title em {
       font-style: italic;
       font-weight: 400;
-      color: #F2C891;
     }
 
-    .hero__desc {
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.65;
-      margin-bottom: 32px;
-      max-width: 380px;
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
     }
 
-    .hero__btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 32px;
-      background: #fff;
-      color: var(--dark);
-      font-family: 'Lato', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .hero__btn:hover { background: var(--warm); transform: translateY(-1px); }
-
-    .hero__scroll {
-      position: absolute;
-      bottom: 48px;
-      right: 28px;
-      z-index: 2;
+    /* ── STORY ── */
+    .story {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      opacity: 0.45;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 36px 0 32px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .hero__scroll span {
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #fff;
-      writing-mode: vertical-rl;
-    }
-
-    .hero__scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, #fff, transparent);
-    }
-
-    /* ── PULLQUOTE ── */
-    .pullquote {
-      background: var(--dark);
-      color: #fff;
-      padding: 64px 28px;
-      text-align: center;
-    }
-
-    .pullquote__mark {
-      font-family: 'Playfair Display', serif;
-      font-size: 5rem;
-      line-height: 0.6;
-      color: rgba(242,200,145,0.3);
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    .pullquote__text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 3vw, 1.45rem);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.65;
-      max-width: 560px;
-      margin: 0 auto 28px;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .pullquote__author {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .pullquote__avatar {
-      width: 42px;
-      height: 42px;
+    .story__avatar {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid rgba(242,200,145,0.4);
+      border: 2px solid var(--cream-dark);
+      box-shadow: 0 3px 12px rgba(155,79,46,0.15);
     }
 
-    .pullquote__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-
-    .pullquote__name {
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.45);
+    .story__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
-    /* ── FEATURES ── */
-    .features {
-      padding: 72px 28px;
-      max-width: 640px;
-      margin: 0 auto;
+    .story__text { padding-top: 2px; }
+
+    .story__quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--terra-dark);
+      line-height: 1.65;
     }
 
-    .section-label {
+    .story__attr {
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      padding: 36px 0 20px;
       font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 36px;
+      color: var(--muted);
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .section-label::after {
+    .section-header::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--border);
     }
 
-    .feature-item {
+    /* ── BENEFITS ── */
+    .benefits {
+      background: var(--cream-dark);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .benefits ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+
+    .benefits li {
       display: flex;
-      gap: 20px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text);
     }
 
-    .feature-item:last-child { border-bottom: none; }
+    .benefits li.highlight { color: var(--terra-dark); font-weight: 600; }
 
-    .feature-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--border);
-      line-height: 1;
+    .check {
       flex-shrink: 0;
-      width: 36px;
-      padding-top: 2px;
-    }
-
-    .feature-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 6px;
-    }
-
-    .feature-body p {
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* ── BOOK ── */
-    .book-section {
-      background: var(--warm);
-      padding: 56px 28px;
+      width: 21px;
+      height: 21px;
+      background: var(--terra);
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 32px;
-      max-width: 640px;
-      margin: 0 auto 0;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .check svg {
+      width: 10px;
+      height: 10px;
+      stroke: #fff;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── BOOK TEASER ── */
+    .book-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #fff;
+      border: 1.5px solid var(--terra);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 16px rgba(155,79,46,0.08);
     }
 
     .book {
       flex-shrink: 0;
-      width: 90px;
-      height: 124px;
+      width: 80px;
+      height: 110px;
       display: flex;
-      filter: drop-shadow(6px 8px 16px rgba(28,16,8,0.3));
+      filter: drop-shadow(3px 5px 10px rgba(125,61,34,0.3));
     }
 
     .book__spine {
-      width: 14px;
-      background: #5C2510;
+      width: 12px;
+      background: var(--terra-dark);
       border-radius: 2px 0 0 2px;
     }
 
@@ -290,7 +243,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px 8px;
+      padding: 8px 6px;
       text-align: center;
       position: relative;
     }
@@ -298,286 +251,269 @@
     .book__cover::before {
       content: '';
       position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(242,200,145,0.25);
+      inset: 5px;
+      border: 1px solid rgba(245,217,168,0.25);
       border-radius: 1px;
     }
 
     .book__title {
       font-family: 'Playfair Display', serif;
-      font-size: 0.55rem;
+      font-size: 0.52rem;
       font-weight: 700;
-      color: #F2C891;
+      color: #F5D9A8;
       line-height: 1.4;
       position: relative;
       z-index: 1;
     }
 
-    .book__line { width: 20px; height: 1px; background: rgba(242,200,145,0.35); margin: 5px auto; }
+    .book__hr { width: 18px; height: 1px; background: rgba(245,217,168,0.35); margin: 4px auto; }
 
     .book__author {
-      font-size: 0.44rem;
-      color: rgba(242,200,145,0.55);
-      font-weight: 700;
+      font-size: 0.42rem;
+      color: rgba(245,217,168,0.55);
+      font-weight: 500;
       letter-spacing: 0.06em;
       position: relative;
       z-index: 1;
     }
 
-    .book-info__label {
+    .book-card__body { flex: 1; }
+
+    .book-card__label {
       font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 6px;
-    }
-
-    .book-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .book-info p {
-      font-size: 0.84rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ── FORM ── */
-    .form-section {
-      padding: 64px 28px 80px;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .form-section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
-      font-weight: 700;
-      color: var(--dark);
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .form-section h2 em { font-style: italic; color: var(--terra); }
-
-    .form-section .sub {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--muted);
-      margin-bottom: 36px;
-      line-height: 1.6;
-    }
-
-    .field { margin-bottom: 14px; }
-
-    .field label {
-      display: block;
-      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 4px;
+    }
+
+    .book-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--terra-dark);
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+
+    .book-card__sub {
+      font-size: 0.81rem;
       color: var(--muted);
-      margin-bottom: 7px;
+      line-height: 1.55;
+    }
+
+    /* ── FORM ── */
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px 24px;
+      box-shadow: 0 4px 28px rgba(155,79,46,0.07);
+    }
+
+    .form-card__eyebrow {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .form-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--terra-dark);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+
+    .field { margin-bottom: 12px; }
+
+    .field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
     .field input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 13px 16px;
       border: 1.5px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.95rem;
-      font-family: 'Lato', sans-serif;
-      background: #fff;
-      color: var(--dark);
-      transition: border-color 0.2s;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
       -webkit-appearance: none;
+      transition: border-color 0.2s;
     }
 
-    .field input:focus { outline: none; border-color: var(--terra); }
-    .field input::placeholder { color: #C4B8A8; }
+    .field input:focus { outline: none; border-color: var(--terra); background: #fff; }
+    .field input::placeholder { color: #C0B0A0; }
 
-    .submit-btn {
+    .btn {
       display: block;
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       margin-top: 8px;
       background: var(--terra);
       color: #fff;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-size: 0.97rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
       border: none;
-      border-radius: 4px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
     }
 
-    .submit-btn:hover { background: #6E2D17; }
+    .btn:hover { background: var(--terra-dark); }
+    .btn:active { transform: scale(0.985); }
 
-    .form-trust {
-      font-size: 0.74rem;
-      font-weight: 300;
-      color: var(--muted);
+    .trust {
       text-align: center;
-      margin-top: 14px;
-      opacity: 0.8;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 10px;
+      opacity: 0.75;
     }
 
-    .success { display: none; text-align: center; padding: 48px 0; }
+    /* ── SUCCESS ── */
+    .success { display: none; text-align: center; padding: 40px 0; }
     .success__icon { font-size: 2rem; margin-bottom: 14px; }
-    .success__title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; color: var(--terra); margin-bottom: 8px; }
-    .success__sub { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.6; }
+    .success__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--terra-dark);
+      margin-bottom: 8px;
+    }
+    .success__sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 28px;
       text-align: center;
-      font-size: 0.72rem;
-      font-weight: 300;
-      color: #B0A090;
+      font-size: 0.73rem;
+      color: #BFB0A0;
+      padding: 40px 24px;
     }
-
-    footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); }
-
-    @media (min-width: 640px) {
-      .hero__content { padding: 0 48px 64px; }
-      .features, .form-section { padding-left: 48px; padding-right: 48px; }
-      .book-section { padding: 64px 48px; }
-      .pullquote { padding: 80px 48px; }
-    }
+    footer a { color: var(--muted); text-decoration: underline; }
   </style>
 </head>
 <body>
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero__bg" id="heroBg"></div>
+  <div class="hero">
+    <img src="loes-klinker-T5VHI-Pj2NQ-unsplash.jpg" alt="Hände beim Backen" />
     <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <span class="hero__tag">philipp.erzählt &nbsp;·&nbsp; Kostenloses PDF</span>
-      <h1 class="hero__title">Omas Rezepte.<br><em>Bevor sie vergessen werden.</em></h1>
-      <p class="hero__desc">7 Originalrezepte von echten Omas – gesammelt auf der Straße. Druckfertig, kostenlos, sofort.</p>
-      <a href="#form" class="hero__btn">
-        PDF kostenlos sichern
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <div class="hero__scroll">
-      <div class="hero__scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- Pullquote -->
-  <div class="pullquote">
-    <span class="pullquote__mark">"</span>
-    <p class="pullquote__text">Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – das macht diesen Moment jedes Mal so besonders.</p>
-    <div class="pullquote__author">
-      <div class="pullquote__avatar">
-        <img src="../rezeptbuch/IMG_9377 6.jpg" alt="Philipp" />
-      </div>
-      <span class="pullquote__name">Philipp &nbsp;·&nbsp; philipp.erzählt</span>
+    <div class="hero__text">
+      <span class="hero__badge">Kostenloses PDF &nbsp;·&nbsp; Early Access</span>
+      <h1 class="hero__title">7 echte Rezepte.<br><em>7 echte Omas.</em></h1>
     </div>
   </div>
 
-  <!-- Features -->
-  <section class="features">
-    <p class="section-label">Was du bekommst</p>
+  <!-- Content -->
+  <div class="main">
 
-    <div class="feature-item">
-      <span class="feature-num">01</span>
-      <div class="feature-body">
-        <h3>7 Originalrezepte – von echten Omas</h3>
-        <p>Keine Kochbuch-Influencer. Echte Menschen, echte Küchen, echte Geschichten – direkt von der Straße.</p>
+    <!-- Story -->
+    <div class="story">
+      <div class="story__avatar">
+        <img src="IMG_9377 6.jpg" alt="Philipp" />
+      </div>
+      <div class="story__text">
+        <p class="story__quote">"Ich gehe auf fremde Omas zu und frage nach ihrem Lieblingsrezept. Wie sie lächeln, sobald sie merken, dass jemand ihr Wissen wirklich wertschätzt – das macht diesen Moment jedes Mal so besonders."</p>
+        <p class="story__attr">— Philipp · philipp.erzählt</p>
       </div>
     </div>
 
-    <div class="feature-item">
-      <span class="feature-num">02</span>
-      <div class="feature-body">
-        <h3>Druckfertig als PDF</h3>
-        <p>Schritt für Schritt erklärt, auch ohne Kocherfahrung. Einfach ausdrucken und sofort in der Küche nutzen.</p>
+    <!-- Benefits -->
+    <p class="section-header">Das bekommst du</p>
+
+    <div class="benefits">
+      <ul>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+          7 Originalrezepte – von echten Omas auf der Straße
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+          Schritt-für-Schritt erklärt, auch ohne Kocherfahrung
+        </li>
+        <li>
+          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+          Druckfertig als PDF – direkt in der Küche nutzen
+        </li>
+        <li class="highlight">
+          <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+          Early Access zum gedruckten Rezeptbuch
+        </li>
+      </ul>
+    </div>
+
+    <!-- Book -->
+    <div class="book-card">
+      <div class="book">
+        <div class="book__spine"></div>
+        <div class="book__cover">
+          <span class="book__title">Omas vergessene Rezepte</span>
+          <div class="book__hr"></div>
+          <span class="book__author">philipp.erzählt</span>
+        </div>
+      </div>
+      <div class="book-card__body">
+        <p class="book-card__label">Demnächst</p>
+        <p class="book-card__title">Das gedruckte Buch kommt.</p>
+        <p class="book-card__sub">Wer sich heute einträgt, erfährt zuerst, wenn es erscheint – und bekommt Early Access.</p>
       </div>
     </div>
 
-    <div class="feature-item">
-      <span class="feature-num">03</span>
-      <div class="feature-body">
-        <h3>Early Access zum gedruckten Buch</h3>
-        <p>Wer sich heute einträgt, erfährt zuerst, wenn das Buch erscheint – und bekommt Early Access.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Form -->
+    <div class="form-card" id="form">
+      <p class="form-card__eyebrow">Kostenlos &amp; sofort</p>
+      <p class="form-card__title">Wo soll ich es<br>hinschicken?</p>
 
-  <!-- Book teaser -->
-  <div class="book-section">
-    <div class="book">
-      <div class="book__spine"></div>
-      <div class="book__cover">
-        <span class="book__title">Omas vergessene Rezepte</span>
-        <div class="book__line"></div>
-        <span class="book__author">philipp.erzählt</span>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="name">Vorname</label>
+          <input type="text" id="name" name="name" placeholder="z.B. Maria" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="email">E-Mail-Adresse *</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required />
+        </div>
+        <button class="btn" type="submit">PDF + Early Access sichern →</button>
+      </form>
+      <p class="trust">🔒 Kein Spam. Abmeldung jederzeit möglich.</p>
+
+      <div class="success" id="successMsg">
+        <div class="success__icon">🤍</div>
+        <p class="success__title">Schön, dass du dabei bist.</p>
+        <p class="success__sub">Check dein Postfach – die Rezepte sind auf dem Weg.<br>Du bist jetzt auf der Early-Access-Liste.</p>
       </div>
     </div>
-    <div class="book-info">
-      <p class="book-info__label">Demnächst</p>
-      <h3>Das gedruckte Buch kommt.</h3>
-      <p>Wer sich jetzt einträgt, bekommt Early Access und erfährt als Erster den Erscheinungstermin.</p>
-    </div>
+
+    <footer>
+      <p>&copy; 2025 philipp.erzählt &nbsp;·&nbsp; <a href="impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
+    </footer>
+
   </div>
-
-  <!-- Form -->
-  <section class="form-section" id="form">
-    <h2>Wo soll ich es<br><em>hinschicken?</em></h2>
-    <p class="sub">Kostenlos & sofort – trag dich ein und bekomme die Rezepte direkt ins Postfach.</p>
-
-    <form id="signupForm" novalidate>
-      <div class="field">
-        <label for="name">Vorname</label>
-        <input type="text" id="name" name="name" placeholder="z.B. Maria" autocomplete="given-name" />
-      </div>
-      <div class="field">
-        <label for="email">E-Mail-Adresse *</label>
-        <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required />
-      </div>
-      <button class="submit-btn" type="submit">PDF + Early Access sichern →</button>
-    </form>
-
-    <p class="form-trust">🔒 Kein Spam. Abmeldung jederzeit möglich.</p>
-
-    <div class="success" id="successMsg">
-      <div class="success__icon">🤍</div>
-      <p class="success__title">Schön, dass du dabei bist.</p>
-      <p class="success__sub">Check dein Postfach – die Rezepte sind auf dem Weg.<br>Du bist jetzt auf der Early-Access-Liste.</p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 philipp.erzählt &nbsp;·&nbsp; <a href="../rezeptbuch/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="../rezeptbuch/datenschutz.html">Datenschutz</a></p>
-  </footer>
 
   <script>
-    // Subtle hero zoom on load
-    window.addEventListener('load', function () {
-      document.getElementById('heroBg').classList.add('loaded');
-    });
-
     document.getElementById('signupForm').addEventListener('submit', function (e) {
       e.preventDefault();
       var email = document.getElementById('email').value.trim();
       var name  = document.getElementById('name').value.trim();
       if (!email || !email.includes('@')) { document.getElementById('email').focus(); return; }
-      var btn = this.querySelector('button[type=submit]');
+      var btn = this.querySelector('button');
       btn.disabled = true;
       btn.textContent = '...';
       fetch('/subscribe', {
