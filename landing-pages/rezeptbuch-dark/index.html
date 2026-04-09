@@ -301,7 +301,7 @@
       var btn = this.querySelector('button[type=submit]');
       btn.disabled = true;
       btn.textContent = '...';
-      fetch('/.netlify/functions/subscribe', {
+      fetch('/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, name: name || undefined })
