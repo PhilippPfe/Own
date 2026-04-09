@@ -360,9 +360,26 @@
     document.getElementById('signupForm').addEventListener('submit', function (e) {
       e.preventDefault();
       var email = document.getElementById('email').value.trim();
+      var name = document.getElementById('name').value.trim();
       if (!email || !email.includes('@')) { document.getElementById('email').focus(); return; }
-      document.getElementById('formCard').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
+
+      var btn = this.querySelector('button[type=submit]');
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      var data = new FormData();
+      data.append('fields[email]', email);
+      if (name) data.append('fields[name]', name);
+      data.append('ml-submit', '1');
+      data.append('anticsrf', 'true');
+
+      fetch('https://assets.mailerlite.com/jsonp/2256075/forms/184261107801654272/subscribe', {
+        method: 'POST',
+        body: data
+      }).finally(function () {
+        document.getElementById('formCard').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      });
     });
   </script>
 </body>
