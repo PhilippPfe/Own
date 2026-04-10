@@ -1,0 +1,3 @@
+[build]
+command = ""
+pages_build_output_dir = "landing-pages/remoryo"
