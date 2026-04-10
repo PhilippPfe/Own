@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remoryo – Das Magazin für Oma & Opa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-dark:  #1b2c43;
+      --blue-light: #82b7d8;
+      --orange:     #ffa631;
+      --teal:       #c7ddda;
+      --beige:      #e8ddd1;
+      --white:      #ffffff;
+      --text:       #1b2c43;
+      --text-muted: #5a7a9b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27,44,67,0.08);
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--blue-dark);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue-dark); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white);
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* HERO */
+    .hero {
+      padding-top: 68px;
+      background: linear-gradient(160deg, var(--beige) 0%, var(--white) 60%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 5% 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: var(--blue-dark);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: var(--blue-dark);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blue-dark);
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      border: 2px solid var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      background: var(--blue-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .hero-trust {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-trust-stars { color: var(--orange); letter-spacing: 2px; }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-magazine {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 40px 80px rgba(27,44,67,0.2);
+      background: linear-gradient(135deg, var(--blue-dark) 0%, #2a4a6e 100%);
+      aspect-ratio: 3/4;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .magazine-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .magazine-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    .magazine-logo span { color: var(--orange); }
+    .magazine-issue {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+    }
+
+    .magazine-photo {
+      flex: 1;
+      background: linear-gradient(to bottom, rgba(27,44,67,0.3), rgba(27,44,67,0.8)),
+                  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23c7ddda'/%3E%3Ccircle cx='200' cy='130' r='60' fill='%2382b7d8' opacity='0.5'/%3E%3Ccircle cx='200' cy='80' r='40' fill='%23e8ddd1' opacity='0.6'/%3E%3C/svg%3E") center/cover;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .magazine-caption {
+      color: var(--white);
+    }
+    .magazine-caption h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .magazine-caption p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .magazine-footer {
+      padding: 1rem 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .mag-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+    .mag-dot.active { background: var(--orange); }
+
+    .hero-float-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 16px 40px rgba(27,44,67,0.15);
+      font-size: 0.85rem;
+    }
+    .hero-float-card.card-1 { bottom: 10%; left: -15%; }
+    .hero-float-card.card-2 { top: 5%; right: -10%; }
+
+    .float-card-label { color: var(--text-muted); font-size: 0.72rem; margin-bottom: 0.2rem; }
+    .float-card-value { font-weight: 700; color: var(--blue-dark); font-size: 1.1rem; }
+    .float-card-value span { color: var(--orange); }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-sub { margin: 0 auto 2.5rem; }
+      .hero-buttons { justify-content: center; }
+      .hero-trust { justify-content: center; }
+      .hero-visual { display: none; }
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      background: var(--white);
+      padding: 6rem 5%;
+    }
+    .section-label {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      color: var(--blue-dark);
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 4rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-radius: 20px;
+      background: var(--beige);
+      position: relative;
+    }
+
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .step-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      font-size: 1.15rem;
+      color: var(--blue-dark);
+      margin-bottom: 0.6rem;
+    }
+    .step p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .steps { grid-template-columns: 1fr; }
+    }
+
+    /* FEATURES */
+    .features {
+      background: var(--teal);
+      padding: 6rem 5%;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .features-visual {
+      background: var(--blue-dark);
+      border-radius: 24px;
+      padding: 2.5rem;
+      color: var(--white);
+    }
+
+    .feature-items { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s;
+    }
+    .feature-item:hover { background: rgba(255,255,255,0.1); }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+    .feature-text p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .features-copy h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      color: var(--blue-dark);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+    .features-copy h2 em { font-style: normal; color: var(--orange); }
+    .features-copy p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 800px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .features-visual { order: -1; }
+    }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: var(--white);
+      padding: 6rem 5%;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .testimonial {
+      background: var(--beige);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .testimonial-stars { color: var(--orange); font-size: 0.9rem; margin-bottom: 1rem; }
+
+    .testimonial p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--blue-dark);
+      font-size: 0.9rem;
+    }
+    .author-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--blue-dark);
+    }
+    .author-role {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 700px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* PRICING */
+    .pricing {
+      background: var(--beige);
+      padding: 6rem 5%;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+
+    .price-card.featured {
+      border-color: var(--orange);
+    }
+
+    .price-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .price-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--blue-dark);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .price-amount sup {
+      font-size: 1.2rem;
+      vertical-align: top;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .price-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--orange);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    /* STATS STRIP */
+    .stats {
+      background: var(--blue-dark);
+      padding: 4rem 5%;
+    }
+
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--orange);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    @media (max-width: 600px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* FINAL CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--beige) 0%, var(--teal) 100%);
+      padding: 8rem 5%;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--blue-dark);
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .cta-section h2 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .cta-section p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-note {
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.45);
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+    .footer-logo span { color: var(--orange); }
+    footer a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--white); }
+
+    /* ANIMATIONS */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">remory<span>o</span></a>
+    <ul class="nav-links">
+      <li><a href="#how">So funktioniert's</a></li>
+      <li><a href="#features">Vorteile</a></li>
+      <li><a href="#preise">Preise</a></li>
+    </ul>
+    <a href="#preise" class="nav-cta">Jetzt starten</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy fade-up">
+        <div class="hero-badge">Jeden Monat. Direkt per Post.</div>
+        <h1>Das schönste Geschenk für <em>Oma & Opa</em> – jeden Monat neu.</h1>
+        <p class="hero-sub">
+          Eure Familie erstellt gemeinsam ein persönliches Foto-Magazin – und wir drucken es und schicken es direkt zu Oma und Opa nach Hause. Ganz ohne Aufwand.
+        </p>
+        <div class="hero-buttons">
+          <a href="#preise" class="btn-primary">Jetzt verschenken</a>
+          <a href="#how" class="btn-secondary">Wie funktioniert's?</a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-stars">★★★★★</span>
+          <span>Über 500 Familien schenken schon Freude mit Remoryo</span>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up">
+        <div class="hero-magazine">
+          <div class="magazine-header">
+            <div class="magazine-logo">remory<span>o</span></div>
+            <div class="magazine-issue">April 2025</div>
+          </div>
+          <div class="magazine-photo">
+            <div class="magazine-caption">
+              <h3>Unsere Familie im März</h3>
+              <p>14 Fotos · 3 Familienmitglieder</p>
+            </div>
+          </div>
+          <div class="magazine-footer">
+            <div class="mag-dot active"></div>
+            <div class="mag-dot"></div>
+            <div class="mag-dot"></div>
+          </div>
+        </div>
+        <div class="hero-float-card card-1">
+          <div class="float-card-label">Nächste Lieferung</div>
+          <div class="float-card-value"><span>✓</span> In 3 Tagen</div>
+        </div>
+        <div class="hero-float-card card-2">
+          <div class="float-card-label">Omas Reaktion</div>
+          <div class="float-card-value"><span>❤️</span> „Ich wein!"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="fade-up">
+        <div class="stat-value">500+</div>
+        <div class="stat-label">Glückliche Familien</div>
+      </div>
+      <div class="fade-up">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Magazine pro Jahr</div>
+      </div>
+      <div class="fade-up">
+        <div class="stat-value">4.9★</div>
+        <div class="stat-label">Durchschnittsbewertung</div>
+      </div>
+      <div class="fade-up">
+        <div class="stat-value">0h</div>
+        <div class="stat-label">Aufwand für Oma & Opa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="section-label">So einfach geht's</div>
+    <h2 class="section-title">In 3 Schritten zum Magazin</h2>
+    <p class="section-sub">Keine App für Oma. Kein Aufwand. Nur Freude, die jeden Monat im Briefkasten landet.</p>
+
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <div class="step-icon">📱</div>
+        <h3>Familie sammelt Fotos</h3>
+        <p>Alle laden ihre schönsten Momente des Monats in der App hoch – ganz einfach vom Smartphone.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <div class="step-icon">🖨️</div>
+        <h3>Wir drucken das Magazin</h3>
+        <p>Remoryo gestaltet und druckt ein hochwertiges, persönliches Foto-Magazin – im Format einer echten Zeitschrift.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <div class="step-icon">💌</div>
+        <h3>Direkt per Post zu Oma</h3>
+        <p>Das fertige Magazin landet jeden Monat im Briefkasten von Oma & Opa. Ganz ohne Technik auf ihrer Seite.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-grid">
+      <div class="features-visual fade-up">
+        <div class="feature-items">
+          <div class="feature-item">
+            <div class="feature-icon">📸</div>
+            <div class="feature-text">
+              <h4>Echte Druckqualität</h4>
+              <p>Hochwertige Magazin-Bindung, brillanter Druck – kein billiges Fotobuch.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">👨‍👩‍👧</div>
+            <div class="feature-text">
+              <h4>Ganze Familie, eine App</h4>
+              <p>Mama, Papa, Geschwister – alle können Fotos beisteuern. Oma muss gar nichts tun.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💬</div>
+            <div class="feature-text">
+              <h4>Mit persönlichen Texten</h4>
+              <p>Kommentare, Bildunterschriften, kleine Geschichten – macht das Magazin einzigartig.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎁</div>
+            <div class="feature-text">
+              <h4>Perfektes Geschenk</h4>
+              <p>Einfach verschenken – Geburtstag, Weihnachten, Muttertag. Das Abo läuft automatisch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-copy fade-up">
+        <div class="section-label">Warum Remoryo</div>
+        <h2>Kein Foto geht mehr <em>verloren.</em></h2>
+        <p>Oma schaut sich WhatsApp-Fotos einmal kurz an – und dann verschwinden sie. Remoryo macht aus euren Erinnerungen etwas Greifbares, das auf dem Tisch liegt, das man immer wieder anschaut.</p>
+        <a href="#preise" class="btn-primary">Abo starten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-label">Das sagen Familien</div>
+    <h2 class="section-title">Echte Freude, jeden Monat</h2>
+    <p class="section-sub">Kein Produkt, das wir uns ausgedacht haben. Hunderte Familien erleben es schon.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>„Meine Oma ruft jedes Mal an, wenn das Magazin ankommt. Sie legt es auf den Couchtisch und zeigt es jedem Besucher. Das macht mich so glücklich."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div>
+            <div class="author-name">Sarah M.</div>
+            <div class="author-role">Enkelin, München</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>„Mein Vater lebt allein und wir sehen ihn nur selten. Seitdem er das Magazin bekommt, sagt er, er fühlt sich nicht mehr so weit weg von uns."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">TK</div>
+          <div>
+            <div class="author-name">Thomas K.</div>
+            <div class="author-role">Sohn, Hamburg</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>„Ich habe es meiner Schwiegermutter zum Geburtstag geschenkt. Sie hat geweint. Wir haben es seitdem verlängert – das Abo läuft schon 14 Monate."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">LP</div>
+          <div>
+            <div class="author-name">Laura P.</div>
+            <div class="author-role">Schwiegertochter, Berlin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="preise">
+    <div class="section-label">Preise</div>
+    <h2 class="section-title">Einfach. Fair. Monatlich.</h2>
+    <p class="section-sub">Kein verstecktes Abo-Chaos. Einmal schenken, jeden Monat Freude.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <div class="price-name">6-Monats-Abo</div>
+        <div class="price-amount"><sup>€</sup>12<sup style="font-size:1rem">,50</sup></div>
+        <div class="price-period">pro Monat · 75 € einmalig</div>
+        <ul class="price-features">
+          <li>6 gedruckte Magazine</li>
+          <li>Lieferung direkt nach Hause</li>
+          <li>Unbegrenzte Fotos pro Ausgabe</li>
+          <li>Alle Familienmitglieder einladen</li>
+        </ul>
+        <a href="#" class="btn-secondary" style="width:100%; text-align:center;">Abo wählen</a>
+      </div>
+
+      <div class="price-card featured fade-up">
+        <div class="price-badge">Beliebteste Wahl</div>
+        <div class="price-name">Jahres-Abo</div>
+        <div class="price-amount"><sup>€</sup>12<sup style="font-size:1rem">,50</sup></div>
+        <div class="price-period">pro Monat · 150 € einmalig</div>
+        <ul class="price-features">
+          <li>12 gedruckte Magazine</li>
+          <li>Lieferung direkt nach Hause</li>
+          <li>Unbegrenzte Fotos pro Ausgabe</li>
+          <li>Alle Familienmitglieder einladen</li>
+          <li>Sonderedition zu Weihnachten</li>
+        </ul>
+        <a href="#" class="btn-primary" style="width:100%; text-align:center;">Jahres-Abo starten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <h2 class="fade-up">Mach Oma glücklich –<br><em>jeden Monat.</em></h2>
+    <p class="fade-up">Das schönste Geschenk, das du verschenken kannst, ist Aufmerksamkeit. Remoryo macht es einfach.</p>
+    <div class="cta-buttons fade-up">
+      <a href="#preise" class="btn-primary">Jetzt verschenken</a>
+      <a href="#how" class="btn-secondary">Mehr erfahren</a>
+    </div>
+    <p class="cta-note">Kein Risiko · Jederzeit kündbar · Kostenloser Versand</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">remory<span>o</span></div>
+    <span>© 2025 Remoryo. Alle Rechte vorbehalten.</span>
+    <div style="display:flex; gap:1.5rem;">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">Kontakt</a>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
